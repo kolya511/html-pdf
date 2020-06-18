@@ -33,6 +33,7 @@ app.use('/', indexRouter)
 
 
 app.use('/', (req, res) => {
+  // а де саме ти зчитуєш дані з query params?
   var html =  htmlFunc({
   param1: 11111,
   param2: 22222
