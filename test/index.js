@@ -1,4 +1,4 @@
-module.exports = function ({param1, param2}) {
+module.exports = function ({ param1, param2 }) {
     return `
     <!DOCTYPE html>
   <html lang="en">
@@ -116,11 +116,11 @@ module.exports = function ({param1, param2}) {
                   <span class="header-text">BEAst Label &trade; A7 </span>
               </div>
   
-              <div class="block1"><span class="text">471965 ${param1}</span></div>
+              <div class="block1"><span class="text">${param1}</span></div>
   
               <hr>
   
-              <div class="block1"><span class="text">3502149 ${param2}</span></div>
+              <div class="block1"><span class="text">${param2}</span></div>
   
               <hr>
   
@@ -188,5 +188,5 @@ module.exports = function ({param1, param2}) {
   
   </html>
     `
-  
-  };
+
+};

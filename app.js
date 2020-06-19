@@ -11,11 +11,6 @@ var bodyParser = require('body-parser')
 
 var indexRouter = require('./routes/index')
 
-var fs = require('fs');
-var pdf = require('html-pdf');
-var htmlFunc = require('./test/index.js');
-
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -30,27 +25,6 @@ app.use(cors())
 
 
 app.use('/', indexRouter)
-
-
-app.use('/', (req, res) => {
-  // а де саме ти зчитуєш дані з query params?
-  var html =  htmlFunc({
-  param1: 11111,
-  param2: 22222
-  });
-    pdf.create(html).toStream(function (err, stream) {
-      if (err) {
-        console.log(err)
-      } else {
-        res.set('Content-type', 'application/pdf');
-        stream.pipe(res)
-      }
-    });
-  })
-
-
-
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
