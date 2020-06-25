@@ -24,9 +24,6 @@ router.get('/sign-up', (req, res) => {
 })
 
 router.get('/sign-in', (req, res) => {
-    User.findOne({ userName: "12312" }, function (err, film) {
-        console.log(film);
-    });
 
 })
 
