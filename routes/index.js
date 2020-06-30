@@ -5,9 +5,6 @@ var fs = require('fs');
 var pdf = require('html-pdf');
 var htmlFunc = require('../html/index.js');
 
-router.get('/', (req, res) => {
-
-})
 
 router.get('/get-pdf', function (req, res, next) {
     var html = htmlFunc({

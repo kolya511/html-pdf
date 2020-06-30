@@ -18,17 +18,7 @@ const userScheme = new Schema({
 
 const User = mongoose.model("User", userScheme);
 
-
-router.get('/sign-up', (req, res) => {
-
-})
-
-router.get('/sign-in', (req, res) => {
-
-})
-
-router.post('/save-user', (req, res) => {
-
+router.post('/sign-up', (req, res) => {
     //5. Створення документа
     const user = new User({
         userName: req.body.userName,
@@ -39,36 +29,53 @@ router.post('/save-user', (req, res) => {
     if (user.userName && user.email && user.password) {
         if (user.password.length >= 6) {
 
-            var isUserNameExists = false;
-
-            User.findOne({ userName: user.userName }, function (err, name) {
-                if (!name)
-                    isUserNameExists = true
+            user.save(function (err) {
+                if (err)
+                    return res.status(500)
+                else
+                    res.status(201)
             });
 
-            if (isUserNameExists) {
+            jwt.sign({ user: user }, "secretkey", (err, token) => {
+                if (err) {
+                    return res.status(500).send(err)
+                }
+                console.log(token);
 
-                user.save(function (err) {
-                    if (err)
-                        return res.status(500)
-                    else
-                        res.status(201)
-                });
-
-                jwt.sign({ user: user }, "secretkey", (err, token) => {
-                    if (err) {
-                        return res.status(500).send(err)
-                    }
-                    console.log(token);
-
-                    res.redirect('/')
-                })
-            }
+                res.redirect('/get-pdf')
+            })
+        }
+        else {
+            res.sendStatus(500)
         }
     }
     else {
-        res.status(500)
+        res.sendStatus(500)
     }
+})
+
+router.post('/sign-in', (req, res) => {
+    const userData = {
+        email: req.body.email,
+        password: req.body.password
+    }
+
+    User.findOne({ email: userData.email }, function (err, email) {
+        if (email) {
+
+            jwt.sign({ user: user }, "secretkey", (err, token) => {
+                if (err) {
+                    return res.status(500).send(err)
+                }
+                console.log(token);
+
+                res.redirect('/get-pdf')
+            })
+
+        }
+
+    });
+
 })
 
 module.exports = router;
