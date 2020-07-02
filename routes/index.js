@@ -1,10 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var jwt = require('jsonwebtoken');
-var fs = require('fs');
 var pdf = require('html-pdf');
 var htmlFunc = require('../html/index.js');
 
+/**
+ * @api {get} /get-pdf Get PDF
+ * @apiName Get PDF
+ * @apiGroup PDF Pages
+ * @apiError Err next(err)
+ * @apiSuccess Stream.pipe res
+ */
 
 router.get('/get-pdf', function (req, res, next) {
     var html = htmlFunc({

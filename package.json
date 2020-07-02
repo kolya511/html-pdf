@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "apidoc": "^0.23.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "convert-html-to-pdf": "^1.0.1",
