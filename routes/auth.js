@@ -55,7 +55,6 @@ router.post('/sign-up', async (req, res) => {
 
                     else
                         res.status(201).json(token)
-
                 })
             }
             else {

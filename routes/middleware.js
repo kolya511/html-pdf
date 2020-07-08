@@ -7,12 +7,11 @@ module.exports = {
 
         if (typeof bearerHeader !== "undefined") {
 
-            return jwt.verify(bearerHeader, 'secretkey', (err, authData) => {
+            return jwt.verify(bearerHeader, 'secretkey', (err) => {
+                console.log(bearerHeader);
                 if (err) {
                     return res.sendStatus(403)
                 }
-                
-                req.user = authData.user
 
                 next()
             })
