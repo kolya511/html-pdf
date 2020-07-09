@@ -10,6 +10,8 @@ module.exports = {
             return jwt.verify(bearerHeader, 'secretkey', (err) => {
                 console.log(bearerHeader);
                 if (err) {
+                    console.log(err);
+                    
                     return res.sendStatus(403)
                 }
 

@@ -30,15 +30,15 @@ router.post('/sign-up', async (req, res) => {
     const user = new User({
         userName: req.body.userName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password// зашифрувати парль
     });
 
     if (user.userName && user.email && user.password) {
         if (user.password.length >= 6) {
 
-            var userName = await User.find({ userName: user.userName });
+            var userName = await User.findOne({ userName: user.userName });
 
-            if (userName == 0) {
+            if (!userName) {
 
                 user.save(function (err) {
                     if (err)
@@ -81,15 +81,22 @@ router.post('/sign-up', async (req, res) => {
 router.post('/sign-in', async (req, res) => {
     const userData = {
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password// зпереврити парль
     }
 
-    var userEmail = await User.find({ email: userData.email });
+    var user = await User.findOne({ email: userData.email, password: userData.password });
 
-    var userPassword = await User.find({ password: userData.password });
 
-    if (userEmail && userPassword.length != 0) {
-        res.status(200).json("sign-in success")
+    if (user) {
+        return jwt.sign({ user: user }, "secretkey", (err, token) => {
+
+            if (err) {
+                return res.status(500)
+            }
+
+            else
+                res.status(201).json(token)
+        })
     }
     else {
         res.status(500)
